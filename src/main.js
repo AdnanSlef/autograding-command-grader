@@ -42,6 +42,7 @@ function generateResult(status, testName, command, message, duration, maxScore) 
 }
 
 function getErrorMessageAndStatus(error, command) {
+  /*
   if (error.message.includes('ETIMEDOUT')) {
     return { status: 'error', errorMessage: 'Command timed out' }
   }
@@ -51,6 +52,7 @@ function getErrorMessageAndStatus(error, command) {
   if (error.message.includes('Command failed')) {
     return { status: 'fail', errorMessage: 'failed with exit code 1' }
   }
+  */
   return  { status: 'error', errorMessage: error.message }
 }
 
