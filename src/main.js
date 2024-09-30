@@ -73,7 +73,7 @@ function run() {
     }
 
     startTime = new Date()
-    output = execSync(command, {timeout, env, stdio: ['pipe', 'pipe', 'pipe']})?.toString()
+    output = execSync(command, {timeout, env, stdio: ['inherit', 'inherit', 'pipe']})?.toString()
     endTime = new Date()
 
     result = generateResult('pass', testName, command, output, endTime - startTime, maxScore)
