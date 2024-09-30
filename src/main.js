@@ -50,8 +50,7 @@ function getErrorMessageAndStatus(error, command) {
   }
   if (error.message.includes('Command failed')) {
     // return { status: 'fail', errorMessage: 'failed with exit code 1' }
-    // return { status: 'fail', errorMessage: error.stderr?.toString() }
-    return { status: 'fail', errorMessage: error }
+    return { status: 'fail', errorMessage: error.stderr?.toString() }
   }
   return  { status: 'error', errorMessage: error.message }
 }
@@ -74,7 +73,7 @@ function run() {
     }
 
     startTime = new Date()
-    output = execSync(command, {timeout, env, stdio: 'inherit'})?.toString()
+    output = execSync(command, {timeout, env, stdio: ['pipe', 'pipe', 'pipe']})?.toString()
     endTime = new Date()
 
     result = generateResult('pass', testName, command, output, endTime - startTime, maxScore)
