@@ -14,6 +14,14 @@ function btoa(str) {
 }
 
 function generateResult(status, testName, command, message, duration, maxScore) {
+  var errScore = maxScore;
+  try {
+    var regex = /make.*Error (\d*)/;
+    errScore = parseInt(regex.exec(message)[1]);
+  }
+  catch (the_exception) {;}
+  var partialScore = maxScore - errScore;
+    
   return {
     version: 1,
     status,
@@ -22,7 +30,7 @@ function generateResult(status, testName, command, message, duration, maxScore) 
       {
         name: testName,
         status,
-        score: status === 'pass' ? maxScore : 0,
+        score: status === 'pass' ? maxScore : partialScore,
         message,
         test_code: command,
         filename: '',
